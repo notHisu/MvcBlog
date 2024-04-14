@@ -15,7 +15,7 @@ namespace MvcBlog.DAL
                 new Blog{BlogId=1,Name="Văn hóa", Description="Thông tin văn hóa", Owner="Văn hóa"},
                 new Blog{BlogId=2,Name="Xã hội", Description="Thông tin xã hội", Owner="Xã hội"},
                 new Blog{BlogId = 3, Name = "Tự nhiên", Description = "Thông tin tự nhiên", Owner = "Tự nhiên"},
-                new Blog{BlogId = 4, Name = "Kinh tế", Description = "Thông tin kinh tế", Owner = "Kinh tế"},
+                new Blog{BlogId = 4, Name = "Kinh tế", Description = "Thông tin kinh tế", Owner = "Kinh tế"}
             };
 
             blogs.ForEach(b => context.Blogs.Add(b));
@@ -27,7 +27,7 @@ namespace MvcBlog.DAL
                 new Post{PostId=2,Title="Tiêm phòng vắc xin bệnh dại",Content="Tiêm phòng ngày 25/02/2012",BlogId=2, CreatedDate=DateTime.Now},
                 new Post{PostId=3,Title="Tin tự nhiên",Content="Tin tự nhiên",BlogId=2, CreatedDate = DateTime.Now},
                 new Post{PostId=4,Title="ABC",Content="DEF",BlogId=4    , CreatedDate = DateTime.Now},
-                new Post{PostId=5,Title="JKL",Content="MNO",BlogId=3, CreatedDate = DateTime.Now},
+                new Post{PostId=5,Title="JKL",Content="MNO",BlogId=3, CreatedDate = DateTime.Now}
             };
 
             posts.ForEach(p => context.Posts.Add(p));

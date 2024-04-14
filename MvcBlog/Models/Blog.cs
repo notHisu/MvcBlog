@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace MvcBlog.Models
 {
+    [MetadataType(typeof(BlogMetadata))]
     public class Blog
     {
-        [Display(Name = "ID")]
+
         public int BlogId { get; set; }
 
-        [Display(Name = "Tên")]
+
         public string Name { get; set; }
 
-        [Display(Name = "Mô tả")]
+
         public string Description { get; set; }
 
-        [Display(Name = "Chủ sở hữu")]
-        public string Owner {  get; set; }
+
+        public string Owner { get; set; }
+
+        public int Rank { get; set; }
         public virtual List<Post> Posts { get; set; }
     }
 }

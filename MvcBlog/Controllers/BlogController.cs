@@ -47,7 +47,7 @@ namespace MvcBlog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BlogId,Name")] Blog blog)
+        public ActionResult Create([Bind(Include = "BlogId,Name,Description,Owner,Rank")] Blog blog)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace MvcBlog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BlogId,Name")] Blog blog)
+        public ActionResult Edit([Bind(Include = "BlogId,Name,Description,Owner,Rank")] Blog blog)
         {
             if (ModelState.IsValid)
             {
