@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MvcBlog.Models.Blog>
+﻿@model PagedList.IPagedList<MvcBlog.Models.Blog>
+@using PagedList.Mvc;
+
 
 @{
     ViewBag.Title = "Index";
@@ -11,7 +13,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Blog", FormMethod.Get))
 {
     <p>
         Find by Name: @Html.TextBox("searchByName")
@@ -19,7 +21,12 @@
     <p>
         Find by Description: @Html.TextBox("searchByDescription")
     </p>
-
+    <p>
+        Sort by: @Html.DropDownList("sortOrder", new SelectList(new List<string>() { "name_asc", "name_desc", "description_asc", "description_desc", "owner_asc", "owner_desc" }), "Select Sort Order")
+    </p>
+    <p>
+        Entries per page: @Html.DropDownList("pageSize", new SelectList(new List<int>() { 10, 25, 50, 100 }), "Select Page Size")
+    </p>
     <input type="submit" value="Search" />
 }
 
@@ -75,3 +82,4 @@
     }
 
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

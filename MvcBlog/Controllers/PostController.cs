@@ -16,7 +16,7 @@ namespace MvcBlog.Controllers
         private BloggingContext db = new BloggingContext();
 
         // GET: Post
-        public ActionResult Index(string searchByBlogId, string searchByTitle, DateTime? dateA, DateTime? dateB)
+        public ActionResult Index(string searchByBlogId, string searchByTitle, DateTime? dateA, DateTime? dateB, string sortOrder)
         {
             var posts = from p in db.Posts select p;
 
@@ -38,6 +38,22 @@ namespace MvcBlog.Controllers
                 }
 
                 posts = posts.Where(p => p.CreatedDate >= dateA.Value && p.CreatedDate <= dateB.Value);
+            }
+
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    posts = posts.OrderByDescending(p => p.Title);
+                    break;
+                case "content":
+                    posts = posts.OrderBy(p => p.Content);
+                    break;
+                case "content_desc":
+                    posts = posts.OrderByDescending(p => p.Content);
+                    break;
+                default:
+                    posts = posts.OrderBy(p => p.Title);
+                    break;
             }
 
             return View(posts.ToList());

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MvcBlog.DAL;
 using MvcBlog.Models;
+using PagedList;
 
 namespace MvcBlog.Controllers
 {
@@ -16,7 +17,7 @@ namespace MvcBlog.Controllers
         private BloggingContext db = new BloggingContext();
 
         // GET: Blog
-        public ActionResult Index(string searchByName, string searchByDescription, string searchByOwner)
+        public ActionResult Index(string searchByName, string searchByDescription, string searchByOwner, string sortOrder, int? page, int? pageSize)
         {
             var blogs = from b in db.Blogs select b;
 
@@ -35,7 +36,31 @@ namespace MvcBlog.Controllers
                 blogs = blogs.Where(b => b.Owner == searchByOwner);
             }
 
-            return View(blogs.ToList());
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    blogs = blogs.OrderByDescending(b => b.Name);
+                    break;
+                case "description":
+                    blogs = blogs.OrderBy(b => b.Description);
+                    break;
+                case "description_desc":
+                    blogs = blogs.OrderByDescending(b => b.Description);
+                    break;
+                case "owner":
+                    blogs = blogs.OrderBy(b => b.Owner);
+                    break;
+                case "owner_desc":
+                    blogs = blogs.OrderByDescending(b => b.Owner);
+                    break;
+                default:
+                    blogs = blogs.OrderBy(b => b.Name);
+                    break;
+            }
+
+            int pageNumber = (page ?? 1);
+            int size = (pageSize ?? 5);
+            return View(blogs.ToPagedList(pageNumber, size));
         }
 
         // GET: Blog/Details/5
