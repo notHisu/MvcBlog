@@ -10,8 +10,7 @@ namespace MvcBlog.DAL
 {
     public class BloggingContext : DbContext    
     {
-        public BloggingContext() : base("BloggingContext") { }
-
+        public BloggingContext(): base("BloggingContext") { }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
 

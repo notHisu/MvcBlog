@@ -27,26 +27,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Owner)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rank)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BlogId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BlogId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BlogId })
-        </td>
-    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner)
+            </td>
+            <td>
+                <span style="color: @(item.Rank >= 85 && item.Rank <= 100 ? "red" 
+            : item.Rank >= 70 && item.Rank <= 84 ? "yellow"
+            : item.Rank >= 55 && item.Rank <= 69 ? "blue"
+            : item.Rank >= 70 && item.Rank <= 84 ? "yellow"
+            : item.Rank >= 40 && item.Rank <= 54 ? "cyan" : "black"
+            )">
+                    @Html.DisplayFor(modelItem => item.Rank)
+                </span>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.BlogId
+                }) |
+                @Html.ActionLink("Details", "Details", new { id = item.BlogId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.BlogId })
+            </td>
+        </tr>
 }
 
 </table>
