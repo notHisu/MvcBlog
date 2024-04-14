@@ -10,6 +10,24 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by BlogId: @Html.TextBox("searchByBlogId")
+    </p>
+    <p>
+        Find by Title: @Html.TextBox("searchByTitle")
+    </p>
+    <p>
+        Date from: @Html.TextBox("dateA", "", new { @class = "datefield", @type = "date" })
+    </p>
+    <p>
+        Date to: @Html.TextBox("dateB", "", new { @class = "datefield", @type = "date" })
+    </p>
+    <input type="submit" value="Search" />
+}
+
 <table class="table">
     <tr>
         <th>

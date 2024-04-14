@@ -16,9 +16,30 @@ namespace MvcBlog.Controllers
         private BloggingContext db = new BloggingContext();
 
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(string searchByBlogId, string searchByTitle, DateTime? dateA, DateTime? dateB)
         {
-            var posts = db.Posts.Include(p => p.Blog);
+            var posts = from p in db.Posts select p;
+
+            if (!String.IsNullOrEmpty(searchByBlogId))
+            {
+                posts = posts.Where(p => p.BlogId.ToString().Contains(searchByBlogId));
+            }
+
+            if (!String.IsNullOrEmpty(searchByTitle))
+            {
+                posts = posts.Where(p => p.Title.Contains(searchByTitle));
+            }
+
+            if (dateA.HasValue && dateB.HasValue)
+            {
+                if (dateA.Value.Date > dateB.Value.Date)
+                {
+                    throw new ArgumentException("Date A should be less than or equal to Date B");
+                }
+
+                posts = posts.Where(p => p.CreatedDate >= dateA.Value && p.CreatedDate <= dateB.Value);
+            }
+
             return View(posts.ToList());
         }
 

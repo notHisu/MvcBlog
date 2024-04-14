@@ -16,9 +16,26 @@ namespace MvcBlog.Controllers
         private BloggingContext db = new BloggingContext();
 
         // GET: Blog
-        public ActionResult Index()
+        public ActionResult Index(string searchByName, string searchByDescription, string searchByOwner)
         {
-            return View(db.Blogs.ToList());
+            var blogs = from b in db.Blogs select b;
+
+            if (!String.IsNullOrEmpty(searchByName))
+            {
+                blogs = blogs.Where(b => b.Name.Contains(searchByName));
+            }
+
+            if (!String.IsNullOrEmpty(searchByDescription))
+            {
+                blogs = blogs.Where(b => b.Description.Contains(searchByDescription));
+            }
+
+            if (!String.IsNullOrEmpty(searchByOwner))
+            {
+                blogs = blogs.Where(b => b.Owner == searchByOwner);
+            }
+
+            return View(blogs.ToList());
         }
 
         // GET: Blog/Details/5
